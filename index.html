@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Partnering with Chennai CA practices to explore an AI back office for follow-up work.">
+<title>CA Practice Design Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; a dark teal opening band like the pitch deck, then light sections; the questionnaire is the one raised panel */
+:root{
+  --bg:#F2F5F4; --surface:#FFFFFF; --ink:#102A2B; --muted:#4A5E60; --line:#D2DCDA;
+  --teal:#1F6F68; --teal-soft:#DCEAE7; --amber:#E3A63B; --amber-ink:#8F5E0E; --amber-soft:#F7EAD2;
+  --band:#102A2B; --band-ink:#F2F5F4; --band-muted:#BFD3D0;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0D1D1E; --surface:#142829; --ink:#E6EEEC; --muted:#A4B8B5; --line:#29403F;
+  --teal:#6CC2B8; --teal-soft:#173A38; --amber:#E3A63B; --amber-ink:#E8B556; --amber-soft:#3A2D14;
+  --band:#081516; --band-ink:#F2F5F4; --band-muted:#BFD3D0; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0D1D1E; --surface:#142829; --ink:#E6EEEC; --muted:#A4B8B5; --line:#29403F;
+  --teal:#6CC2B8; --teal-soft:#173A38; --amber:#E3A63B; --amber-ink:#E8B556; --amber-soft:#3A2D14;
+  --band:#081516; --band-ink:#F2F5F4; --band-muted:#BFD3D0; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.05;font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.6vw,34px);line-height:1.15;font-weight:700}
+h3{font-size:19px;line-height:1.3;font-weight:500}
+p{margin:0;max-width:66ch}
+a{color:var(--teal)}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* opening band */
+.hero{background:var(--band);color:var(--band-ink);border-left:12px solid var(--amber)}
+.hero .wrap{padding-block:56px 48px;display:flex;flex-direction:column;gap:20px}
+.hero .eyebrow{color:var(--amber)}
+.hero .lede{font-size:clamp(18px,2.4vw,22px);color:var(--band-muted);max-width:56ch}
+.hero .who{font-size:15px;color:var(--band-muted)}
+.hero .who b{color:var(--band-ink);font-weight:600}
+.jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--body);padding:11px 18px;border-radius:8px;text-decoration:none;cursor:pointer;border:1px solid transparent}
+.btn.primary{background:var(--amber);color:#102A2B}
+.btn.ghost{border-color:var(--band-muted);color:var(--band-ink);background:transparent}
+.btn:focus-visible,button:focus-visible,input:focus-visible+span,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+main{display:flex;flex-direction:column;gap:0}
+section.block{border-bottom:1px solid var(--line)}
+section.block .wrap{padding-block:48px;display:flex;flex-direction:column;gap:20px}
+.head{display:flex;flex-direction:column;gap:8px}
+
+/* domain */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
+.fact{border-top:2px solid var(--teal);padding-top:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fact .n{font-family:var(--display);font-size:34px;font-weight:700;line-height:1.1;color:var(--teal);font-variant-numeric:tabular-nums}
+.fact .l{font-size:14px;color:var(--muted)}
+.cycle{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+.cycle .tag{font-family:var(--mono);font-size:13px;padding:4px 10px;border-radius:99px;background:var(--teal-soft);color:var(--ink);white-space:nowrap}
+
+/* problems */
+.plist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.plist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:14px 0;border-top:1px solid var(--line);align-items:baseline}
+.plist li:last-child{border-bottom:1px solid var(--line)}
+.plist .q{font-family:var(--display);font-size:18px;font-weight:500}
+.plist .d{grid-column:1/-1;font-size:15px;color:var(--muted)}
+.ev{font-family:var(--mono);font-size:12px;padding:2px 9px;border-radius:99px;white-space:nowrap;border:1px solid var(--line);color:var(--muted)}
+.ev.s{background:var(--teal-soft);border-color:transparent;color:var(--ink)}
+.ev.m{background:var(--amber-soft);border-color:transparent;color:var(--ink)}
+
+/* candidates */
+.cands{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.cand{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cand .letter{font-family:var(--mono);font-size:13px;color:var(--amber-ink);font-weight:500}
+.cand dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px}
+.cand dt{color:var(--muted)}
+.cand dd{margin:0;min-width:0}
+.vote-note{background:var(--amber-soft);border-radius:10px;padding:14px 18px;font-size:15px}
+
+/* partnership */
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
+.col h3{margin-bottom:8px}
+.col ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.guard{font-size:14px;color:var(--muted);border-left:3px solid var(--teal);padding-left:12px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.steps li{display:flex;flex-direction:column;gap:4px;min-width:0}
+.steps .when{font-family:var(--mono);font-size:13px;color:var(--amber-ink)}
+.steps .what{font-weight:600}
+.steps .how{font-size:14px;color:var(--muted)}
+
+/* questionnaire */
+.qpanel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,4vw,32px);display:flex;flex-direction:column;gap:26px}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+legend{font-weight:600;font-size:16px;padding:0;margin-bottom:10px}
+legend .num{font-family:var(--mono);font-size:13px;color:var(--amber-ink);margin-right:8px}
+.hint{font-weight:400;color:var(--muted);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:99px;font-size:15px;cursor:pointer;background:var(--bg);color:var(--ink)}
+.chip input:checked+span{background:var(--teal);border-color:var(--teal);color:var(--surface)}
+.qlist{margin:0;padding-left:24px;display:flex;flex-direction:column;gap:12px;font-size:17px}
+.qlist li::marker{font-family:var(--mono);color:var(--amber-ink)}
+.chip input:disabled+span{opacity:.45;cursor:not-allowed}
+.other-in{font:15px var(--body);padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--ink);flex:1 1 220px;min-width:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fields label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--muted)}
+.fields input{font:16px var(--body);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+.out{display:flex;flex-direction:column;gap:10px}
+.out textarea{font:14px/1.5 var(--mono);width:100%;min-height:150px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn.solid{background:var(--teal);color:var(--surface)}
+.status{font-size:14px;color:var(--muted)}
+.contact{font-family:var(--mono);font-size:14px;user-select:all}
+footer .wrap{padding-block:28px 48px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+@media (prefers-reduced-motion:no-preference){.chip span{transition:background .15s,border-color .15s}}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Chennai · November 2026</span>
+  <h1>Let's explore AI for CA practices, together</h1>
+  <p class="lede">I am looking to partner with a few Chennai CA practices to explore one opportunity: an AI back office that takes on the follow-up work so the CA can focus on judgement. We would work out together where it truly helps, and what is worth building at all.</p>
+  <p class="who"><b>Leela Desai</b> · Chennai · <span class="contact">leeladesai@gmail.com</span></p>
+  <div class="jump"><a class="btn primary" href="#questions">Answer 7 quick questions</a><a class="btn ghost" href="#partner">See the partnership</a></div>
+</div></header>
+
+<main>
+
+<section class="block" id="domain"><div class="wrap">
+  <div class="head"><span class="eyebrow">The domain</span><h2>Small CA practices that run India's compliance calendar</h2></div>
+  <p>Most practices are small, often one owner with a few juniors and article assistants. They serve traders and small businesses whose GST, TDS and income tax all run on fixed deadlines, and every deadline starts with collecting papers from clients.</p>
+  <div class="facts">
+    <div class="fact"><span class="n">1.62 lakh</span><span class="l">CAs holding a certificate of practice</span></div>
+    <div class="fact"><span class="n">99,000</span><span class="l">registered CA firms, about 68,000 of them proprietorships</span></div>
+    <div class="fact"><span class="n">1.67 crore</span><span class="l">GST taxpayers whose returns these offices prepare</span></div>
+  </div>
+  <div class="cycle"><span class="muted">A monthly GST filer's rhythm:</span><span class="tag">GSTR-1 by the 11th</span><span class="tag">GSTR-2B ready mid-month</span><span class="tag">GSTR-3B by the 20th</span><span class="muted">plus quarterly TDS and the annual ITR season.</span></div>
+  <p class="small muted">Sources: ICAI annual report 2024-25 via Juris Hour and Careers360; GSTN nine-year report.</p>
+</div></section>
+
+<section class="block" id="problems"><div class="wrap">
+  <div class="head"><span class="eyebrow">Problem statements</span><h2>Six problems I think a filing month creates</h2></div>
+  <p>These come from vendor research and public discussion. None has been confirmed by Chennai firms yet, which is why I am asking.</p>
+  <ul class="plist">
+    <li><span class="q">Chasing clients for documents</span><span class="ev m">Evidence: medium-strong</span><span class="d">Juniors message clients again and again for bills and bank statements; the partner phones the late ones near the deadline.</span></li>
+    <li><span class="q">Supplier invoices missing in GSTR-2B</span><span class="ev m">Evidence: medium</span><span class="d">The purchase register does not match what suppliers filed, so the client's input tax credit is at risk.</span></li>
+    <li><span class="q">Tax notices found late</span><span class="ev s">Evidence: strong</span><span class="d">GST and income-tax notices arrive by portal, email or WhatsApp and sit unseen until the reply window is nearly gone.</span></li>
+    <li><span class="q">Notice replies written from scratch</span><span class="ev m">Evidence: medium</span><span class="d">Each reply is drafted fresh, even when the firm has answered the same kind of notice many times before.</span></li>
+    <li><span class="q">Clients calling for status</span><span class="ev m">Evidence: medium</span><span class="d">Clients phone to ask whether their return is filed, and the calls land on the partner.</span></li>
+    <li><span class="q">Collecting the firm's own fees</span><span class="ev">Evidence: weak</span><span class="d">Fees are paid late and reminders feel awkward to send to a long-standing client.</span></li>
+  </ul>
+</div></section>
+
+<section class="block" id="key"><div class="wrap">
+  <div class="head"><span class="eyebrow">The key problem</span><h2>Two candidates to solve first. You help pick.</h2></div>
+  <p>Either one would be built so the agent finishes the job, not just sends a reminder. The other follows once the first works.</p>
+  <div class="cands">
+    <article class="cand">
+      <span class="letter">Candidate A</span>
+      <h3>Document chasing</h3>
+      <p>The agent knows what each client still owes this month, follows up on WhatsApp, then makes a polite Tamil call, and pushes what arrives into Tally.</p>
+      <dl><dt>Why first</dt><dd>Happens every cycle, for every client. The smallest thing a firm would pay for.</dd><dt>Watch out</dt><dd>Zoho Practice, Suvit and Jamku already collect documents.</dd></dl>
+    </article>
+    <article class="cand">
+      <span class="letter">Candidate B</span>
+      <h3>Tax notices</h3>
+      <p>Every notice is logged with its deadline the day it arrives, and a first draft reply is built from the firm's own past replies for the CA to approve.</p>
+      <dl><dt>Why first</dt><dd>Highest stakes and the strongest public evidence of pain.</dd><dt>Watch out</dt><dd>Several AI reply tools launched in 2025-26; a wrong draft carries liability.</dd></dl>
+    </article>
+  </div>
+  <p class="vote-note">Question 3 below asks which one you would want first. The design partners' answers decide it.</p>
+</div></section>
+
+<section class="block" id="partner"><div class="wrap">
+  <div class="head"><span class="eyebrow">Design partnership</span><h2>Build it with me, around how your office already works</h2></div>
+  <div class="cols3">
+    <div class="col"><h3>What you give</h3><ul><li>A 30-minute conversation about your last filing month</li><li>20 minutes every two weeks during the pilot to review what the agent did</li><li>Honest feedback, including "this is useless"</li></ul></div>
+    <div class="col"><h3>What you get</h3><ul><li>A place in shaping the system: what gets built, and in what order</li><li>First access to the agent, free, set up and run with you during the pilot</li><li>The anonymised findings from all firms</li></ul></div>
+    <div class="col"><h3>What I need to design it</h3><ul><li>How you ask clients for documents today: your usual WhatsApp message</li><li>Your monthly checklist for a typical GST client</li><li>3 to 5 past notice replies, with client details removed</li><li>For the pilot: 30 to 50 client contacts and a Tally export</li></ul></div>
+  </div>
+  <p class="guard">Your data stays in India, is used only for your firm, and is deleted when you ask or when the pilot ends. Nothing about money, penalties or legal positions goes to a client without your approval.</p>
+  <ol class="steps">
+    <li><span class="when">November</span><span class="what">Conversations</span><span class="how">10 Chennai firms, outside the 11th–20th filing window</span></li>
+    <li><span class="when">December</span><span class="what">Setup</span><span class="how">3 design partners: agreement, templates, baseline</span></li>
+    <li><span class="when">January–February</span><span class="what">Pilot</span><span class="how">Two GST cycles with the agent running</span></li>
+    <li><span class="when">March</span><span class="what">Decide together</span><span class="how">Continue, change it, or stop</span></li>
+  </ol>
+</div></section>
+
+<section class="block" id="questions"><div class="wrap">
+  <div class="head"><span class="eyebrow">Seven quick questions</span><h2>Two minutes, and it shapes what gets built</h2></div>
+  <p>Your answers go straight to me through a short Google Form. These are the questions it asks.</p>
+  <div class="qpanel">
+    <ol class="qlist">
+      <li>How many active GST clients does your practice handle?</li>
+      <li>Which two problems hurt most?</li>
+      <li>Which should be solved first: document chasing, tax notices, or something else?</li>
+      <li>Last month, how many hours did your team spend chasing clients for documents?</li>
+      <li>How do you handle document collection and notices today?</li>
+      <li>Which tools does your practice use today?</li>
+      <li>Would you like to join as a design partner?</li>
+    </ol>
+    <div class="actions">
+      <a class="btn solid" href="https://docs.google.com/forms/d/e/1FAIpQLSdVpi6WFhR10y6UI3qFCTNtnjCcxvjBPsG8RqHbF9tLB-FK1g/viewform" target="_blank" rel="noopener">Answer on the Google Form</a>
+      <span class="status">Opens in a new tab.</span>
+    </div>
+  </div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">
+  <p>All figures are public estimates or assumptions to test with design partners, not results.</p>
+  <p>Leela Desai · Chennai · <span class="contact">leeladesai@gmail.com</span></p>
+</div></footer>
+
+
+</body>
+</html>
